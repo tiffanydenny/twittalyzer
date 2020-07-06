@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, redirect, request, url_for, g
 from twitter_utils import get_request_token, get_oauth_verifier_url, get_access_token
 from user import User
 from database import Database
+from flask_paginate import Pagination, get_page_parameter
 import requests
 
 app = Flask(__name__)
@@ -53,16 +54,23 @@ def profile():
 @app.route('/search')
 def search():
     query = request.args.get('q')
-    tweets = g.user.twitter_request('https://api.twitter.com/1.1/search/tweets.json?q={}'.format(query))
+    if query:
+        search = True
+    tweets = g.user.twitter_request('https://api.twitter.com/1.1/search/tweets.json?q={}&lang=en+exclude:retweets+exclude:replies&count=100'.format(query))
 
     tweet_texts = [{'tweet': tweet['text'], 'label': 'neutral'} for tweet in tweets['statuses']]
 
+    count=0
     for tweet in tweet_texts:
         r = requests.post('http://text-processing.com/api/sentiment/', data={'text': tweet['tweet']})
         json_response = r.json()
         label = json_response['label']
         tweet['label'] = label
+        count +=1
 
-    return render_template('search.html', content=tweet_texts)
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    pagination = Pagination(page=page, total=count, search=search, record_name='tweets')
+
+    return render_template('search.html', content=tweet_texts, pagination=pagination)
 
 app.run(port=8910, debug=True)

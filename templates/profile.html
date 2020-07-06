@@ -5,10 +5,10 @@
     <title>User profile</title>
 </head>
 <body>
-    {{ user.username }}
+<h1>{{ user.username }}</h1>
     <form action="{{ url_for('search') }}">
-        <label for="q">Search Twitter</label>
-        <input type="text" name="q" id="q" placeholder="Find something!">
+        <label for="q">Search Twitter Text</label>
+        <input type="text" name="q" id="q" placeholder="Tweet topic">
         <button type="submit">Search</button>
     </form>
 </body>

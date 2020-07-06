@@ -21,8 +21,3 @@ if not user:
     user = User(user_email, first_name, last_name, access_token['oauth_token'], access_token['oauth_token_secret'], None)
     user.save_to_db()
 
-
-tweets = user.twitter_request('https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images')
-
-for tweet in tweets['statuses']:
-    print(tweet['text'])

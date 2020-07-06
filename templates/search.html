@@ -9,20 +9,46 @@
 
 <body>
 <div class="container">
-  <ul class="list-group" id="tweets">
+    <h1>Analyze Tweet Sentiment</h1>
+    <h4><a href="{{ url_for('profile') }}">Back to Profile</a></h4>
+    <div class="form">
+        <form action="{{ url_for('search') }}">
+            <label for="q">Search Again</label>
+            <input type="text" name="q" id="q" placeholder="Tweet Topic">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div>
+        <p>
+            Sentiment Coding:
+            <span class="list-group-item-info">
+                <span class="list-group-item-success">Positive Sentiment</span>
+                <span class="list-group-item-danger">Negative Sentiment</span>
+                <span>Neutral Sentiment</span>
+            </span>
+        </p>
+        {{pagination.links}}
+        <ul class="list-group" id="tweets">
+            {% set css_class = 'list-group-item-info' %}
 
-    {% set css_class = 'list-group-item-info' %}
+            {% for element in content %}
+                {% if element['label'] == 'neg' %}
+                    {% set css_class = 'list-group-item-danger' %}
+                {% elif element['label'] == 'pos' %}
+                    {% set css_class = 'list-group-item-success' %}
+                {% endif %}
 
-    {% for element in content %}
-        {% if element['label'] == 'neg' %}
-            {% set css_class = 'list-group-item-danger' %}
-        {% elif element['label'] == 'pos' %}
-            {% set css_class = 'list-group-item-success' %}
-        {% endif %}
-
-        <li class="list-group-item {{ css_class }}"> {{ element['tweet'] }} </li>
-    {% endfor %}
-  </ul>
-</div>
+                <li class="list-group-item {{ css_class }}"> {{ element['tweet'] }} </li>
+            {% endfor %}
+        </ul>
+        {{pagination.links}}
+    </div>
+    <div>
+      <form action="{{ url_for('search') }}">
+        <label for="q">Search Again</label>
+        <input type="text" name="q" id="q" placeholder="Tweet Topic">
+        <button type="submit">Search</button>
+      </form>
+    </div>
 </body>
 </html>
