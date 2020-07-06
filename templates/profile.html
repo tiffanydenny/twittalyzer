@@ -7,9 +7,15 @@
 <body>
 <h1>{{ user.username }}</h1>
     <form action="{{ url_for('search') }}">
-        <label for="q">Search Twitter Text</label>
-        <input type="text" name="q" id="q" placeholder="Tweet topic">
+        <label for="q">Search Twitter</label>
+        <input type="text" name="q" id="q" placeholder="tweet topic">
         <button type="submit">Search</button>
     </form>
+<!--    <form action="{{ url_for('images') }}">-->
+<!--        <label for="q">Search Tweet Images</label>-->
+<!--        <input type="text" name="q" id="q" placeholder="tweet topic">-->
+<!--        <button type="submit">Search</button>-->
+<!--    </form>-->
+    <h4><a href="{{ url_for('logout') }}">Logout</a></h4>
 </body>
 </html>

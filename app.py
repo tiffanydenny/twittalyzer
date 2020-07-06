@@ -73,4 +73,17 @@ def search():
 
     return render_template('search.html', content=tweet_texts, pagination=pagination)
 
+@app.route('/images')
+def images():
+    query = request.args.get('q')
+
+    tweets = g.user.twitter_request('https://api.twitter.com/1.1/search/tweets.json?q={}+exclude:retweets+exclude:replies&filter:images&count=10'.format(query))
+    tweet_image_url = [tweet['text'] for tweet in tweets['statuses']]
+    # for tweet in tweets:
+    #     if tweet.image:
+    #         for image in tweet.image:
+    #             tweet_image_url = image.image_url
+
+    return render_template('images.html', content=tweet_image_url)
+
 app.run(port=8910, debug=True)
