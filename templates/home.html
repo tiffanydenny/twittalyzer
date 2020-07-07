@@ -2,9 +2,12 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='static/css/style.css') }}">
 </head>
 
-<body>
+<body style="margin: 1rem; max-width: 70vw">
     <h1> Twittalyzer </h1>
     <p>Search tweets using a keyword, and the automated sentiment analyzer will sort tweets based on positive, negative, or neutral sentiment (the accuracy is questionable!).</p>
 <!--    <p>If you'd rather just look at the pretty pictures, you can also search Twitter by keyword and return associated images. </p>-->

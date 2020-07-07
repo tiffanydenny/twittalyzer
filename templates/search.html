@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='static/css/style.css') }}">
     <title>Results</title>
 </head>
 
 <body>
 <div class="container">
-    <h1>Analyze Tweet Sentiment</h1>
-    <h4><a href="{{ url_for('profile') }}">Back to Profile</a></h4>
-    <div>
+    <h4 style="position: relative; margin-left: 60vw; margin-top: 1rem"><a href="{{ url_for('profile') }}">Back to Profile</a></h4>
+    <h1 style="margin: 1rem 0">Analyze Tweet Sentiment</h1>
+
+    <div style="margin-top: 1rem">
         <form action="{{ url_for('search') }}">
             <label for="q">Search Again</label>
             <input type="text" name="q" id="q" placeholder="Tweet Topic">
             <button type="submit">Search</button>
         </form>
+
     </div>
     <div>
-        <p>
+        <p style="margin-top: .5rem; text-align: left">
             Sentiment Coding:
             <span class="list-group-item-info">
                 <span class="list-group-item-success">Positive Sentiment</span>
@@ -27,8 +29,8 @@
                 <span>Neutral Sentiment</span>
             </span>
         </p>
-        {{pagination.links}}
-        <ul class="list-group" id="tweets">
+        <div style="margin: 1rem 40%"> {{ pagination.links }} </div>
+        <ul class="list-group pagination" id="tweets">
             {% set css_class = 'list-group-item-info' %}
 
             {% for element in content %}
@@ -37,11 +39,10 @@
                 {% elif element['label'] == 'pos' %}
                     {% set css_class = 'list-group-item-success' %}
                 {% endif %}
-
                 <li class="list-group-item {{ css_class }}"> {{ element['tweet'] }} </li>
             {% endfor %}
         </ul>
-        {{pagination.links}}
+        <div style="margin: 1rem 40%"> {{ pagination.links }} </div>
     </div>
     <div>
       <form action="{{ url_for('search') }}">
